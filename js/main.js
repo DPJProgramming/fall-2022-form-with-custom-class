@@ -3,10 +3,9 @@ var VideoGame = (function () {
     }
     return VideoGame;
 }());
-var myGame = new VideoGame();
-myGame.title = "Dark Souls";
-myGame.rating = "M";
-myGame.onlineOnly = false;
+function fromId(id) {
+    return document.getElementById(id);
+}
 window.onload = function () {
     var addButton = document.querySelector("input[type=button]");
     addButton.onclick = addVideoGame;
@@ -14,10 +13,21 @@ window.onload = function () {
 function addVideoGame() {
     if (isAllDataValid) {
         var game = getVideoGame;
-        displayGame(game);
     }
 }
 function getVideoGame() {
+    var game = new VideoGame();
+    game.title = fromId("title").value;
+    game.price = parseFloat(fromId("price").value);
+    game.rating = fromId("MaRating").value;
+    var onlineOnly = fromId("online");
+    if (onlineOnly.checked) {
+        game.onlineOnly = true;
+    }
+    else {
+        game.onlineOnly = false;
+    }
+    return game;
 }
 function displayGame(myGame) {
 }
