@@ -53,7 +53,7 @@ function isDataValid(game) {
     var valid = true;
     if (game.title == "") {
         if (fromId("title-error") == null) {
-            var noTitle = document.createElement("p");
+            var noTitle = document.createElement("li");
             noTitle.id = "title-error";
             noTitle.innerText = "Game title required";
             errorList.appendChild(noTitle);
@@ -62,7 +62,7 @@ function isDataValid(game) {
     }
     if (fromId("price").value == "" || isNaN(game.price)) {
         if (fromId("price-error") == null) {
-            var noPrice = document.createElement("p");
+            var noPrice = document.createElement("li");
             noPrice.id = "price-error";
             noPrice.innerText = "Please enter a price as a number";
             errorList.appendChild(noPrice);
@@ -71,7 +71,7 @@ function isDataValid(game) {
     }
     if (game.genre == "What genre is this game") {
         if (fromId("genre-error") == null) {
-            var noGenre = document.createElement("p");
+            var noGenre = document.createElement("li");
             noGenre.id = "genre-error";
             noGenre.innerText = "Please choose a genre for this game";
             errorList.appendChild(noGenre);
@@ -80,12 +80,20 @@ function isDataValid(game) {
     }
     if (game.rating == "Please choose a rating") {
         if (fromId("rating-error") == null) {
-            var noRating = document.createElement("p");
+            var noRating = document.createElement("li");
             noRating.id = "rating-error";
             noRating.innerText = "Please choose a rating for this game";
             errorList.appendChild(noRating);
         }
         valid = false;
+    }
+    if (valid == false) {
+        if (fromId("error-head") == null) {
+            var errorHead = document.createElement("h3");
+            errorHead.id = "error-head";
+            errorHead.innerText = "ERROR";
+            errorList.prepend(errorHead);
+        }
     }
     return valid;
 }
@@ -101,5 +109,12 @@ function clearErrors() {
     }
     if (fromId("rating-error") != null) {
         fromId("rating-error").remove();
+    }
+    if (fromId("title-error") != null ||
+        fromId("price-error") != null ||
+        fromId("genre-error") != null ||
+        fromId("rating-error") != null ||
+        fromId("error-head") != null) {
+        fromId("error-head").remove();
     }
 }

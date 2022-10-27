@@ -9,7 +9,22 @@ h1{
 
 h2{
 text-align: center;
-color: red;
+color: blue;
+}
+
+div{
+    margin-bottom: 1em;
+}
+
+h3{
+    color: red;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: auto;
+}
+li{
+    text-align: center;
+    color: red;
 }
 
 p{
