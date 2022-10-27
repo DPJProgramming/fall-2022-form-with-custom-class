@@ -23,8 +23,11 @@ window.onload = function(){
 function addVideoGame(){
     let game = getVideoGame();
 
+    //will clear errors if they exist. If they were 
+    //fixed, they will not reappear
+    clearErrors();
+
     if(isDataValid(game)){
-        clearErrors();
         displayGame(game);
     }
 }
@@ -92,38 +95,71 @@ function isDataValid(game:VideoGame):boolean{
 
     //if title is empty
     if(game.title == ""){
-        let noTitle = document.createElement("p");
-        noTitle.innerText = "Game title required";
-        errorList.appendChild(noTitle);
+        if(fromId("title-error") == null){
+            let noTitle = document.createElement("p");
+            noTitle.id = "title-error";
+            noTitle.innerText = "Game title required";
+            errorList.appendChild(noTitle);
+        }
         valid = false;
     }
 
     //if price is empty or not a number
     if((<HTMLInputElement>fromId("price")).value == "" || isNaN(game.price)){
-        let noPrice = document.createElement("p");
-        noPrice.innerText = "Please enter a price as a number";
-        errorList.appendChild(noPrice);
+       
+        if(fromId("price-error") == null){
+            let noPrice = document.createElement("p");
+            noPrice.id = "price-error";
+            noPrice.innerText = "Please enter a price as a number";
+            errorList.appendChild(noPrice);
+        }
         valid = false;
     }
 
     //if no genre is selected
     if(game.genre == "What genre is this game"){
-        let noGenre = document.createElement("p");
-        noGenre.innerText = "Please choose a genre for this game";
-        errorList.appendChild(noGenre);
+
+        if(fromId("genre-error") == null){
+            let noGenre = document.createElement("p");
+            noGenre.id = "genre-error";
+            noGenre.innerText = "Please choose a genre for this game";
+            errorList.appendChild(noGenre);
+        }
         valid = false;
     }
 
     //if no rating is selected
     if(game.rating == "Please choose a rating"){
-        let noRating = document.createElement("p");
-        noRating.innerText = "Please choose a rating for this game";
-        errorList.appendChild(noRating);
+
+        if(fromId("rating-error") == null){
+            let noRating = document.createElement("p");
+            noRating.id = "rating-error";
+            noRating.innerText = "Please choose a rating for this game";
+            errorList.appendChild(noRating);
+        }
         valid = false;
     }
     return valid;
 }
-function clearErrors() {
-    
+
+/**
+ * will clear errors if they exist and are fixed in the form.
+ */
+function clearErrors():void {
+    if(fromId("title-error") != null){
+        fromId("title-error").remove();
+    }
+
+    if(fromId("price-error") != null){
+        fromId("price-error").remove();
+    }
+
+    if(fromId("genre-error") != null){
+        fromId("genre-error").remove();
+    }
+
+    if(fromId("rating-error") != null){
+        fromId("rating-error").remove();
+    }
 }
 

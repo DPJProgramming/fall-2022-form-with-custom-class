@@ -12,8 +12,8 @@ window.onload = function () {
 };
 function addVideoGame() {
     var game = getVideoGame();
+    clearErrors();
     if (isDataValid(game)) {
-        clearErrors();
         displayGame(game);
     }
 }
@@ -52,30 +52,54 @@ function isDataValid(game) {
     var errorList = fromId("validation-summary");
     var valid = true;
     if (game.title == "") {
-        var noTitle = document.createElement("p");
-        noTitle.innerText = "Game title required";
-        errorList.appendChild(noTitle);
+        if (fromId("title-error") == null) {
+            var noTitle = document.createElement("p");
+            noTitle.id = "title-error";
+            noTitle.innerText = "Game title required";
+            errorList.appendChild(noTitle);
+        }
         valid = false;
     }
     if (fromId("price").value == "" || isNaN(game.price)) {
-        var noPrice = document.createElement("p");
-        noPrice.innerText = "Please enter a price as a number";
-        errorList.appendChild(noPrice);
+        if (fromId("price-error") == null) {
+            var noPrice = document.createElement("p");
+            noPrice.id = "price-error";
+            noPrice.innerText = "Please enter a price as a number";
+            errorList.appendChild(noPrice);
+        }
         valid = false;
     }
     if (game.genre == "What genre is this game") {
-        var noGenre = document.createElement("p");
-        noGenre.innerText = "Please choose a genre for this game";
-        errorList.appendChild(noGenre);
+        if (fromId("genre-error") == null) {
+            var noGenre = document.createElement("p");
+            noGenre.id = "genre-error";
+            noGenre.innerText = "Please choose a genre for this game";
+            errorList.appendChild(noGenre);
+        }
         valid = false;
     }
     if (game.rating == "Please choose a rating") {
-        var noRating = document.createElement("p");
-        noRating.innerText = "Please choose a rating for this game";
-        errorList.appendChild(noRating);
+        if (fromId("rating-error") == null) {
+            var noRating = document.createElement("p");
+            noRating.id = "rating-error";
+            noRating.innerText = "Please choose a rating for this game";
+            errorList.appendChild(noRating);
+        }
         valid = false;
     }
     return valid;
 }
 function clearErrors() {
+    if (fromId("title-error") != null) {
+        fromId("title-error").remove();
+    }
+    if (fromId("price-error") != null) {
+        fromId("price-error").remove();
+    }
+    if (fromId("genre-error") != null) {
+        fromId("genre-error").remove();
+    }
+    if (fromId("rating-error") != null) {
+        fromId("rating-error").remove();
+    }
 }
