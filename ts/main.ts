@@ -16,9 +16,10 @@ window.onload = function(){
 }
 
 function addVideoGame(){
-    if(isAllDataValid){
-        let game = getVideoGame;
-        //displayGame(game);
+
+    if(isAllDataValid()){
+        let game = getVideoGame();
+        displayGame(game);
     }
 }
 
@@ -38,10 +39,31 @@ function getVideoGame():VideoGame{
     return game;
 }
 
-function displayGame(myGame:VideoGame):void{
+function displayGame(game:VideoGame):void{
+    let gameList = fromId("gameList");
 
+    //create h2 with game title
+    let gameHeading = document.createElement("h2");
+    gameHeading.innerText = game.title;
+
+    //create paragraph with game details
+    let gameInfo = document.createElement("p");
+
+    //add h2 to gameList div
+    gameList.appendChild(gameHeading);
+    gameList.appendChild(gameInfo);
+
+    let isOnlineOnly = "";
+    if(!game.onlineOnly){
+        isOnlineOnly = "Come to the store for your physical copy.";
+    }
+    else{
+        isOnlineOnly = "It is Online Only.";
+    }
+
+    gameInfo.innerText = `${game.title} has a rating of ${game.rating} and costs $${game.price.toFixed(2)}. ${isOnlineOnly}.`;
 }
 
 function isAllDataValid(){
-
+    return true;
 }
