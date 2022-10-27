@@ -12,7 +12,8 @@ window.onload = function () {
 };
 function addVideoGame() {
     var game = getVideoGame();
-    if (isAllDataValid(game)) {
+    if (isDataValid(game)) {
+        clearErrors();
         displayGame(game);
     }
 }
@@ -47,7 +48,7 @@ function displayGame(game) {
     }
     gameInfo.innerText = "".concat(game.title, " has a rating of ").concat(game.rating, " and costs $").concat(game.price.toFixed(2), ". ").concat(isOnlineOnly, ".");
 }
-function isAllDataValid(game) {
+function isDataValid(game) {
     var errorList = fromId("validation-summary");
     var valid = true;
     if (game.title == "") {
@@ -62,6 +63,19 @@ function isAllDataValid(game) {
         errorList.appendChild(noPrice);
         valid = false;
     }
-    if ()
-        return valid;
+    if (game.genre == "What genre is this game") {
+        var noGenre = document.createElement("p");
+        noGenre.innerText = "Please choose a genre for this game";
+        errorList.appendChild(noGenre);
+        valid = false;
+    }
+    if (game.rating == "Please choose a rating") {
+        var noRating = document.createElement("p");
+        noRating.innerText = "Please choose a rating for this game";
+        errorList.appendChild(noRating);
+        valid = false;
+    }
+    return valid;
+}
+function clearErrors() {
 }

@@ -16,15 +16,23 @@ window.onload = function(){
     addButton.onclick = addVideoGame;
 }
 
+/**
+ * calls the get VideoGame function, then isDataValid, 
+ * clears the error field with clearErrors, then displayGame.
+ */
 function addVideoGame(){
-
     let game = getVideoGame();
 
-    if(isAllDataValid(game)){
+    if(isDataValid(game)){
+        clearErrors();
         displayGame(game);
     }
 }
 
+/**
+ * retrieves data from form about the game to be added to list.
+ * @returns VideoGame
+ */
 function getVideoGame():VideoGame{
     let game = new VideoGame();
     game.title = (<HTMLInputElement>fromId("title")).value;
@@ -43,6 +51,10 @@ function getVideoGame():VideoGame{
     return game;
 }
 
+/**
+ * displays game information from form into the space below the form
+ * @param game 
+ */
 function displayGame(game:VideoGame):void{
     let gameList = fromId("gameList");
 
@@ -68,7 +80,12 @@ function displayGame(game:VideoGame):void{
     gameInfo.innerText = `${game.title} has a rating of ${game.rating} and costs $${game.price.toFixed(2)}. ${isOnlineOnly}.`;
 }
 
-function isAllDataValid(game:VideoGame):boolean{
+/**
+ * determines if all of the data in the form is valid or not
+ * @param game 
+ * @returns boolean
+ */
+function isDataValid(game:VideoGame):boolean{
 
     let errorList = fromId("validation-summary");
     let valid = true;
@@ -80,6 +97,7 @@ function isAllDataValid(game:VideoGame):boolean{
         errorList.appendChild(noTitle);
         valid = false;
     }
+
     //if price is empty or not a number
     if((<HTMLInputElement>fromId("price")).value == "" || isNaN(game.price)){
         let noPrice = document.createElement("p");
@@ -88,6 +106,24 @@ function isAllDataValid(game:VideoGame):boolean{
         valid = false;
     }
 
-    if()
+    //if no genre is selected
+    if(game.genre == "What genre is this game"){
+        let noGenre = document.createElement("p");
+        noGenre.innerText = "Please choose a genre for this game";
+        errorList.appendChild(noGenre);
+        valid = false;
+    }
+
+    //if no rating is selected
+    if(game.rating == "Please choose a rating"){
+        let noRating = document.createElement("p");
+        noRating.innerText = "Please choose a rating for this game";
+        errorList.appendChild(noRating);
+        valid = false;
+    }
     return valid;
 }
+function clearErrors() {
+    
+}
+
