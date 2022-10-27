@@ -11,8 +11,8 @@ window.onload = function () {
     addButton.onclick = addVideoGame;
 };
 function addVideoGame() {
-    if (isAllDataValid()) {
-        var game = getVideoGame();
+    var game = getVideoGame();
+    if (isAllDataValid(game)) {
         displayGame(game);
     }
 }
@@ -21,6 +21,7 @@ function getVideoGame() {
     game.title = fromId("title").value;
     game.price = parseFloat(fromId("price").value);
     game.rating = fromId("MaRating").value;
+    game.genre = fromId("genre").value;
     var onlineOnly = fromId("online");
     if (onlineOnly.checked) {
         game.onlineOnly = true;
@@ -46,6 +47,21 @@ function displayGame(game) {
     }
     gameInfo.innerText = "".concat(game.title, " has a rating of ").concat(game.rating, " and costs $").concat(game.price.toFixed(2), ". ").concat(isOnlineOnly, ".");
 }
-function isAllDataValid() {
-    return true;
+function isAllDataValid(game) {
+    var errorList = fromId("validation-summary");
+    var valid = true;
+    if (game.title == "") {
+        var noTitle = document.createElement("p");
+        noTitle.innerText = "Game title required";
+        errorList.appendChild(noTitle);
+        valid = false;
+    }
+    if (fromId("price").value == "" || isNaN(game.price)) {
+        var noPrice = document.createElement("p");
+        noPrice.innerText = "Please enter a price as a number";
+        errorList.appendChild(noPrice);
+        valid = false;
+    }
+    if ()
+        return valid;
 }

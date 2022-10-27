@@ -2,6 +2,7 @@
 class VideoGame{
     title:string;
     price:number;
+    genre:string;
     rating:string;
     onlineOnly:boolean;
 }
@@ -17,8 +18,9 @@ window.onload = function(){
 
 function addVideoGame(){
 
-    if(isAllDataValid()){
-        let game = getVideoGame();
+    let game = getVideoGame();
+
+    if(isAllDataValid(game)){
         displayGame(game);
     }
 }
@@ -28,6 +30,8 @@ function getVideoGame():VideoGame{
     game.title = (<HTMLInputElement>fromId("title")).value;
     game.price = parseFloat((<HTMLInputElement>fromId("price")).value);
     game.rating = (<HTMLSelectElement>fromId("MaRating")).value;
+    game.genre = (<HTMLSelectElement>fromId("genre")).value;
+
 
     let onlineOnly = <HTMLInputElement>fromId("online");
     if(onlineOnly.checked){
@@ -64,6 +68,26 @@ function displayGame(game:VideoGame):void{
     gameInfo.innerText = `${game.title} has a rating of ${game.rating} and costs $${game.price.toFixed(2)}. ${isOnlineOnly}.`;
 }
 
-function isAllDataValid(){
-    return true;
+function isAllDataValid(game:VideoGame):boolean{
+
+    let errorList = fromId("validation-summary");
+    let valid = true;
+
+    //if title is empty
+    if(game.title == ""){
+        let noTitle = document.createElement("p");
+        noTitle.innerText = "Game title required";
+        errorList.appendChild(noTitle);
+        valid = false;
+    }
+    //if price is empty or not a number
+    if((<HTMLInputElement>fromId("price")).value == "" || isNaN(game.price)){
+        let noPrice = document.createElement("p");
+        noPrice.innerText = "Please enter a price as a number";
+        errorList.appendChild(noPrice);
+        valid = false;
+    }
+
+    if()
+    return valid;
 }

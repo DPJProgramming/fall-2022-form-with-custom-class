@@ -10,7 +10,7 @@
 <body>
     <h1>Add Video Game</h1>
     <div id="validation-summary">
-        <p>Errors go here</p>
+        <p></p>
     </div>
     <form>
         <label for = "title">Title</label>
@@ -19,6 +19,15 @@
 
         <label for = "price">Price</label>
         <input id="price" type="text">
+        <br>
+
+        <label for = "genre">Game Genre</label>
+        <select id="genre">
+            <option>What genre is this game</option>
+            <option>First Person Shooter</option>
+            <option>RPG</option>
+            <option>Survival Horror</option>
+        </select>
         <br>
 
         <label for = "MaRating">Rating</label>
@@ -34,13 +43,11 @@
         <input type="checkbox" id="online">
         <br>
 
-        <input type="button" value="Add New Video Game">
+        <input type="button" id="button" value="Add New Video Game">
 
     </form>
 
-    <div id="gameList">
-        
-    </div>
+    <div id="gameList"></div>
 
     <script src="/js/main.js"></script>
 </body>
