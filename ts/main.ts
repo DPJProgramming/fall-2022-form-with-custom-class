@@ -29,6 +29,7 @@ function addVideoGame():void{
 
     if(isDataValid(game)){
         displayGame(game);
+        clearEntries();
     }
 }
 
@@ -92,7 +93,7 @@ function isDataValid(game:VideoGame):boolean{
     let errorList:HTMLElement = fromId("validation-summary");
     let valid:boolean = true;
 
-    //if title is empty or is only a number or symbal
+    //if title is empty or is only a number
     if(game.title == "" || /^[0-9., ]+$/.test(game.title)){
         if(fromId("title-error") == null){
             let noTitle:HTMLElement = document.createElement("li");
@@ -181,4 +182,13 @@ function clearErrors():void {
         fromId("error-head").remove();
     }
 }
+
+function clearEntries():void{
+    (<HTMLInputElement>fromId("title")).value = "";
+    (<HTMLInputElement>fromId("price")).value = "";
+    (<HTMLSelectElement>fromId("MaRating")).value = "Please choose a rating";
+    (<HTMLSelectElement>fromId("genre")).value = "What genre is this game";
+    (<HTMLInputElement>fromId("online")).checked = false;
+}
+
 

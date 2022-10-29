@@ -15,6 +15,7 @@ function addVideoGame() {
     clearErrors();
     if (isDataValid(game)) {
         displayGame(game);
+        clearEntries();
     }
 }
 function getVideoGame() {
@@ -117,4 +118,11 @@ function clearErrors() {
         fromId("error-head") != null) {
         fromId("error-head").remove();
     }
+}
+function clearEntries() {
+    fromId("title").value = "";
+    fromId("price").value = "";
+    fromId("MaRating").value = "Please choose a rating";
+    fromId("genre").value = "What genre is this game";
+    fromId("online").checked = false;
 }
