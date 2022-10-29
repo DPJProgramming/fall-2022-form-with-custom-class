@@ -51,11 +51,11 @@ function displayGame(game) {
 function isDataValid(game) {
     var errorList = fromId("validation-summary");
     var valid = true;
-    if (game.title == "") {
+    if (game.title == "" || /^[0-9., ]+$/.test(game.title)) {
         if (fromId("title-error") == null) {
             var noTitle = document.createElement("li");
             noTitle.id = "title-error";
-            noTitle.innerText = "Game title required";
+            noTitle.innerText = "Title required and cant be only numbers.";
             errorList.appendChild(noTitle);
         }
         valid = false;

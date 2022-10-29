@@ -43,7 +43,6 @@ function getVideoGame():VideoGame{
     game.rating = (<HTMLSelectElement>fromId("MaRating")).value;
     game.genre = (<HTMLSelectElement>fromId("genre")).value;
 
-
     let onlineOnly:HTMLInputElement = <HTMLInputElement>fromId("online");
     if(onlineOnly.checked){
         game.onlineOnly = true;
@@ -93,12 +92,12 @@ function isDataValid(game:VideoGame):boolean{
     let errorList:HTMLElement = fromId("validation-summary");
     let valid:boolean = true;
 
-    //if title is empty
-    if(game.title == ""){
+    //if title is empty or is only a number or symbal
+    if(game.title == "" || /^[0-9., ]+$/.test(game.title)){
         if(fromId("title-error") == null){
             let noTitle:HTMLElement = document.createElement("li");
             noTitle.id = "title-error";
-            noTitle.innerText = "Game title required";
+            noTitle.innerText = "Title required and cant be only numbers.";
             errorList.appendChild(noTitle);
         }
         valid = false;
